@@ -1,0 +1,14 @@
+{
+	"development": {
+        "config_id": "development",
+        "app_name": "BP Information Service",
+        "exposedPort": "22137"
+	},
+
+    "ranges": {
+      "SYSTOLIC_MIN" : 70,
+      "SYSTOLIC_MAX" : 190,
+      "DIASTOLIC_MIN" : 40,
+      "DIASTOLIC_MAX"  : 100
+    }
+}
