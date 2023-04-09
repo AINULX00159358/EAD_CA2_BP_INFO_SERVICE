@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bp-info-app
+  labels:
+    app: bpinfo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bpinfo
+  template:
+    metadata:
+      labels:
+        app: bpinfo
+    spec:
+      containers:
+        - image: eadca2/bpinfoservice:v1
+          name: bpinfoapp
+          ports:
+            - containerPort: 22137
