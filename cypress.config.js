@@ -8,12 +8,14 @@ module.exports = defineConfig({
                 level: 'debug'
             }
         },
+        video: false,
         reporter: "mochawesome",
         reporterOptions: {
             "reportDir": "cypress/results",
             "overwrite": true,
-            "html": false,
-            "json": true
+            "html": true,
+            "json": false
         }
     },
 })
+
