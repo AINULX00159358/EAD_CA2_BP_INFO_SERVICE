@@ -15,7 +15,7 @@ spec:
         app: bpinfo
     spec:
       containers:
-        - image: eadca2/bpinfoservice:v1
+        - image:  ainhabacr.azurecr.io/eadca2/bpinfoservice:v1
           name: bpinfoapp
           ports:
             - containerPort: 22137
