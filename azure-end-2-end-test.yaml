@@ -25,8 +25,8 @@ steps:
   - bash: |
       # Write your commands here
       echo "Running Cypress Test"
-      ./node_modules/cypress/bin/cypress run --reporter junit --reporter-options "mochaFile=./cypress/results/ead-ca2-bp-info-service.xml,toConsole=true"
-      echo "Printing Report"
+      ./node_modules/cypress/bin/cypress run --reporter junit --reporter-options "mochaFile=./cypress/results/TEST-bpinfoservice-Result.xml,toConsole=true"
+      echo "Printing Report and workingDir is  $(System.DefaultWorkingDirectory)"
       cat ./cypress/results/ead-ca2-bp-info-service.xml
     displayName: 'Cypress Test'
     continueOnError: true
@@ -42,7 +42,7 @@ steps:
   - task: PublishTestResults@2
     displayName: 'Publish Test Results ead-ca2-bp-info-service.xml'
     inputs:
-      testResultsFiles: 'ead-ca2-bp-info-service.xml'
+      testResultsFiles: '**/TEST-*.xml'
       failTaskOnFailedTests: true
       testRunTitle: 'BP-INFO-SERVICE-E2E-TEST'
 
