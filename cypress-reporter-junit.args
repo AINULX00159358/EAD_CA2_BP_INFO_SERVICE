@@ -1,0 +1,1 @@
+--reporter junit --reporter-options "mochaFile=./cypress/results/ead-ca2-bp-info-service.xml,toConsole=true"
