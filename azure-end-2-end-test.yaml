@@ -26,8 +26,8 @@ steps:
       # Write your commands here
       echo "Running Cypress Test"
       ./node_modules/cypress/bin/cypress run --reporter junit --reporter-options "mochaFile=./cypress/results/TEST-bpinfoservice-Result.xml,toConsole=true"
-      echo "Printing Report and workingDir is  $(System.DefaultWorkingDirectory)"
-      cat ./cypress/results/ead-ca2-bp-info-service.xml
+      echo "Printing Report and workingDir in  $(System.DefaultWorkingDirectory)"
+      cat ./cypress/results/TEST-bpinfoservice-Result.xml
     displayName: 'Cypress Test'
     continueOnError: true
 
