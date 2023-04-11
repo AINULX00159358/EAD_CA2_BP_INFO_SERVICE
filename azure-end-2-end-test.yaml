@@ -1,0 +1,40 @@
+pool:
+  name: Azure Pipelines
+  demands: npm
+
+steps:
+  - task: Npm@1
+    displayName: 'npm install'
+    inputs:
+      verbose: true
+    retryCountOnTaskFailure: 2
+
+  - task: DockerInstaller@0
+    displayName: 'Install Docker 17.09.0-ce'
+
+  - bash: |
+      # Write your commands here
+
+      echo 'running docker build'
+      docker build --no-cache --tag bpinfoservice:CA2_TEST_V1 $(Build.SourcesDirectory)
+      echo 'running docker image'
+      docker run --name bpinfoservice-test -p 22137:22137 -d bpinfoservice:CA2_TEST_V1
+
+    displayName: 'Build and run docker image'
+
+  - bash: |
+      # Write your commands here
+      echo "Running Cypress Test"
+      ./node_modules/cypress/bin/cypress run --reporter junit --reporter-options "mochaFile=./cypress/results/ead-ca2-bp-info-service.xml,toConsole=true"
+      echo "Printing Report"
+      cat ./cypress/results/ead-ca2-bp-info-service.xml
+    displayName: 'Cypress Test'
+    continueOnError: true
+
+  - bash: |
+      # Write your commands here
+
+      docker stop bpinfoservice-test || true && docker rm bpinfoservice-test || true
+    displayName: 'kill running docker copy'
+    continueOnError: true
+    condition: always()

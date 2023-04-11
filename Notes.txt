@@ -1,0 +1,2 @@
+./node_modules/cypress/bin/cypress run --reporter mochawesome --reporterOptions "reportDir=cypress/results,overwrite=true,html=true,json=false"
+./node_modules/cypress/bin/cypress run --reporter junit --reporter-options "mochaFile=./cypress/results/ead-ca2-bp-info-service.xml,toConsole=true"
