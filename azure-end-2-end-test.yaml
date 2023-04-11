@@ -38,3 +38,11 @@ steps:
     displayName: 'kill running docker copy'
     continueOnError: true
     condition: always()
+
+  - task: PublishTestResults@2
+    displayName: 'Publish Test Results ead-ca2-bp-info-service.xml'
+    inputs:
+      testResultsFiles: 'ead-ca2-bp-info-service.xml'
+      failTaskOnFailedTests: true
+      testRunTitle: 'BP-INFO-SERVICE-E2E-TEST'
+
