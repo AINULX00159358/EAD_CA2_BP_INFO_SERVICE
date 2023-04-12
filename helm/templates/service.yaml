@@ -6,12 +6,11 @@ metadata:
 spec:
   # Add external load balancer
   # *Only supported by some cloud providers*
-  type: LoadBalancer
+  type: ClusterIP
   ports:
     - name: http
       port: 22137
       targetPort: 22137
   selector:
-    # Loadbalance traffic across Pods matching
     # this label selector
     app: bpinfo
