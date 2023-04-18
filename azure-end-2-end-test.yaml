@@ -2,7 +2,10 @@ pool:
   name: Azure Pipelines
   demands: npm
 
-trigger: none
+trigger:
+  - None
+
+name: INFO-SERVICE_TEST
 
 resources:
   pipelines:
