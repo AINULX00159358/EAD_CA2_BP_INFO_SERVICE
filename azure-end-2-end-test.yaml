@@ -14,25 +14,11 @@ steps:
     displayName: 'Install Docker 17.09.0-ce'
 
   - bash: |
-      mkdir -p ~/.docker/cli-plugins
-      curl https://github.com/docker/scan-cli-plugin/releases/latest/download/docker-scan_linux_amd64 -L -s -S -o ~/.docker/cli-plugins/docker-scan
-      chmod +x ~/.docker/cli-plugins/docker-scan
-      ls -l ~/.docker/cli-plugins/docker-scan
-      ~/.docker/cli-plugins/docker-scan --help
-    displayName: "Docker version"
-
-  - bash: |
       echo 'running docker build'
       docker build --no-cache --tag bpinfoservice:CA2_TEST_V1 $(Build.SourcesDirectory)
       echo 'running docker image'
-      docker run --name bpinfoservice-test -p 22137:22137 -d bpinfoservice:CA2_TEST_V1
+      docker run -rm --name bpinfoservice-test -p 22137:22137 -d bpinfoservice:CA2_TEST_V1
     displayName: 'Build and run docker image'
-    continueOnError: true
-
-  - bash: |
-      # Scan docker imager for vunrability
-      docker scan bpinfoservice:CA2_TEST_V1
-    displayName: 'Scan Docker Image'
     continueOnError: true
 
   - bash: |
@@ -45,8 +31,6 @@ steps:
     continueOnError: true
 
   - bash: |
-      # Write your commands here
-
       docker stop bpinfoservice-test || true && docker rm bpinfoservice-test || true
     displayName: 'kill running docker copy'
     continueOnError: true
