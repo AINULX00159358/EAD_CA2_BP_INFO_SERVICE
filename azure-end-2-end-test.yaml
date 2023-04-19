@@ -13,7 +13,9 @@ steps:
   - task: DockerInstaller@0
     displayName: 'Install Docker 17.09.0-ce'
   - bash: |
-      apt-get install docker-scan-plugin
+      mkdir -p ~/.docker/cli-plugins && \
+      curl https://github.com/docker/scan-cli-plugin/releases/latest/download/docker-scan_linux_amd64 -L -s -S -o ~/.docker/cli-plugins/docker-scan &&\
+      chmod +x ~/.docker/cli-plugins/docker-scan
       docker scan --accept-license --version
 
   - bash: |
