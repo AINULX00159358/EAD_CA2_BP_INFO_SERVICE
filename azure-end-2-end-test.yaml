@@ -13,7 +13,7 @@ steps:
   - task: DockerInstaller@0
     displayName: 'Install Docker 17.09.0-ce'
   - bash: |
-      apt-get update && apt-get install docker-scan-plugin
+      apt-get install docker-scan-plugin
       docker scan --accept-license --version
 
   - bash: |
