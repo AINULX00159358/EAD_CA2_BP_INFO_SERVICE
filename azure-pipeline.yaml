@@ -11,6 +11,14 @@
 trigger:
   - None
 
+
+resources:
+  pipelines:
+    - pipeline: INFO-SERVICE-TEST # Name of the pipeline resource.
+      source: INFO-SERVICE-TEST # The name of the pipeline referenced by this pipeline resource.
+      trigger: true # Run app-ci pipeline when any run of security-lib-ci completes
+
+
 pool:
   vmImage: ubuntu-latest
 
