@@ -12,15 +12,15 @@ steps:
 
   - task: DockerInstaller@0
     displayName: 'Install Docker 17.09.0-ce'
+
   - bash: |
       mkdir -p ~/.docker/cli-plugins && \
       curl https://github.com/docker/scan-cli-plugin/releases/latest/download/docker-scan_linux_amd64 -L -s -S -o ~/.docker/cli-plugins/docker-scan &&\
       chmod +x ~/.docker/cli-plugins/docker-scan
       docker scan --accept-license --version
+    displayName: "Installing Docker scan"
 
   - bash: |
-      # Write your commands here
-
       echo 'running docker build'
       docker build --no-cache --tag bpinfoservice:CA2_TEST_V1 $(Build.SourcesDirectory)
       echo 'running docker image'
