@@ -13,10 +13,6 @@ steps:
   - task: DockerInstaller@0
     displayName: 'Install Docker 17.09.0-ce'
   
-  - bash: |
-      curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin v0.18.3
-      trivy
-    displayName: 'Run try scan'
 
   - bash: |
       echo 'running docker build'
@@ -25,6 +21,11 @@ steps:
       docker run --name bpinfoservice-test -p 22137:22137 -d bpinfoservice:CA2_TEST_V1
     displayName: 'Build and run docker image'
     continueOnError: true
+  
+  - bash: |
+      curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin v0.18.3
+      trivy image bpinfoservice-test
+    displayName: 'install try scan'
 
   - bash: |
       # Write your commands here
