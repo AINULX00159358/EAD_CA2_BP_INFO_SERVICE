@@ -32,7 +32,7 @@ steps:
         sudo dpkg -i trivy_$(trivyVersion)_Linux-64bit.deb
         mkdir $(ScanResultsPath)
         trivy image --format template --template "/usr/local/share/trivy/templates/html.tpl" -o $(ScanResultsPath)/report.html bpinfoservice:CA2_TEST_V1
-        ls -lrt $(ScanResultsPath)/
+        cat $(ScanResultsPath)/report.html
     displayName: 'Scan using Trivy scan'
 
   - bash: |
