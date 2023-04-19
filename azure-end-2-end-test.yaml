@@ -31,8 +31,7 @@ steps:
         wget -q https://github.com/aquasecurity/trivy/releases/download/v$(trivyVersion)/trivy_$(trivyVersion)_Linux-64bit.deb
         sudo dpkg -i trivy_$(trivyVersion)_Linux-64bit.deb
         mkdir $(ScanResultsPath)
-        trivy image --security-checks vuln,config,secret --severity CRITICAL,HIGH -o $(ScanResultsPath)/results.table bpinfoservice:CA2_TEST_V1 
-        cat $(ScanResultsPath)/results.table
+        trivy image --scanners vuln,config,secret --severity CRITICAL,HIGH -o $(ScanResultsPath)/results.table bpinfoservice:CA2_TEST_V1
     displayName: 'Scan using Trivy scan'
 
   - bash: |
