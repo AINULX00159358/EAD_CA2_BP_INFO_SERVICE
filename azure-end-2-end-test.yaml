@@ -32,7 +32,6 @@ steps:
         sudo dpkg -i trivy_$(trivyVersion)_Linux-64bit.deb
         mkdir $(ScanResultsPath)
         trivy image --format json -o $(ScanResultsPath)/results.json bpinfoservice:CA2_TEST_V1 
-        ls -lrt $(ScanResultsPath)/results.html
     displayName: 'Scan using Trivy scan'
 
   - bash: |
