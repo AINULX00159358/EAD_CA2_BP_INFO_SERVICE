@@ -31,7 +31,9 @@ steps:
         wget -q https://github.com/aquasecurity/trivy/releases/download/v$(trivyVersion)/trivy_$(trivyVersion)_Linux-64bit.deb
         sudo dpkg -i trivy_$(trivyVersion)_Linux-64bit.deb
         mkdir $(ScanResultsPath)
-        trivy image -f table -o $(ScanResultsPath)/results.table bpinfoservice:CA2_TEST_V1 
+        wget -q https://github.com/aquasecurity/trivy/blob/v0.40.0/contrib/html.tpl
+        trivy image --format template --template html.tpl-o $(ScanResultsPath)/results.html bpinfoservice:CA2_TEST_V1 
+        ls -lrt $(ScanResultsPath)/results.html
     displayName: 'Scan using Trivy scan'
 
   - bash: |
@@ -58,4 +60,4 @@ steps:
 
   - task: PublishHtmlReport@1
     inputs:
-      reportDir: '$(ScanResultsPath)/results.table'
+      reportDir: '$(ScanResultsPath)/results.html'
