@@ -14,7 +14,11 @@ steps:
     displayName: 'Install Docker 17.09.0-ce'
 
   - bash: |
-      docker scan
+      mkdir -p ~/.docker/cli-plugins
+      curl https://github.com/docker/scan-cli-plugin/releases/latest/download/docker-scan_linux_amd64 -L -s -S -o ~/.docker/cli-plugins/docker-scan
+      chmod +x ~/.docker/cli-plugins/docker-scan
+      ls -l ~/.docker/cli-plugins/docker-scan
+      ~/.docker/cli-plugins/docker-scan --help
     displayName: "Docker version"
 
   - bash: |
