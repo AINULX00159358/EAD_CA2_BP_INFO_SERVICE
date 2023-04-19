@@ -30,6 +30,8 @@ steps:
       wget -q https://github.com/aquasecurity/trivy/releases/download/v0.40.0/trivy_0.40.0_Linux-64bit.tar.gz
       tar -xf trivy_0.40.0_Linux-64bit.tar.gz
       ls -lrt
+      rm -rf *.gz
+      chmod a+x trivy
       trivy -v
       trivy image --format template --template "@contrib/junit.tpl" -o trivy-vunrability-report.xml bpinfoservice:CA2_TEST_V1
     displayName: 'Scan using Trivy scan'
