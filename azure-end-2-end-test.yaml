@@ -27,11 +27,11 @@ steps:
   
   - script: |
       mkdir trivy && cd trivy
-      wget https://github.com/aquasecurity/trivy/releases/download/v0.40.0/trivy_0.40.0_Linux-64bit.tar.gz
+      wget -q https://github.com/aquasecurity/trivy/releases/download/v0.40.0/trivy_0.40.0_Linux-64bit.tar.gz
       tar -xf trivy_0.40.0_Linux-64bit.tar.gz
       ls -lrt
-      # trivy -v
-      # trivy image --format template --template "@contrib/junit.tpl" -o trivy-vunrability-report.xml bpinfoservice:CA2_TEST_V1
+      trivy -v
+      trivy image --format template --template "@contrib/junit.tpl" -o trivy-vunrability-report.xml bpinfoservice:CA2_TEST_V1
     displayName: 'Scan using Trivy scan'
 
   - bash: |
@@ -59,7 +59,7 @@ steps:
   - task: PublishTestResults@2
     inputs:
       testResultsFormat: 'JUnit'
-      testResultsFiles: '**/trivy-vunrability-report*.xml'
+      testResultsFiles: '**/trivy/trivy-vunrability-report*.xml'
       mergeTestResults: true
       failTaskOnFailedTests: false
       testRunTitle: 'Trivy - Low and Medium Vulnerabilities'
