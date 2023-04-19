@@ -29,8 +29,7 @@ steps:
        sudo apt-get install rpm
         wget https://github.com/aquasecurity/trivy/releases/download/v$(trivyVersion)/trivy_$(trivyVersion)_Linux-64bit.deb
         sudo dpkg -i trivy_$(trivyVersion)_Linux-64bit.deb
-        wget https://github.com/aquasecurity/trivy/blob/main/contrib/junit.tpl
-        trivy image --format template --template "junit.tpl" -o trivy-vunrability-report.xml bpinfoservice:CA2_TEST_V1
+        trivy image --format template --template "/usr/local/share/trivy/templates/html.tpl" -o trivy-vunrability-report.html bpinfoservice:CA2_TEST_V1
     displayName: 'Scan using Trivy scan'
 
   - bash: |
@@ -55,10 +54,4 @@ steps:
       failTaskOnFailedTests: true
       testRunTitle: 'BP-INFO-SERVICE-E2E-TEST'
   
-  - task: PublishTestResults@2
-    inputs:
-      testResultsFormat: 'JUnit'
-      testResultsFiles: '**/trivy-vunrability-report*.xml'
-      mergeTestResults: true
-      failTaskOnFailedTests: false
-      testRunTitle: 'Trivy - Low and Medium Vulnerabilities'
+  
