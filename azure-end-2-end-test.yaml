@@ -13,6 +13,9 @@ steps:
 
   - task: DockerInstaller@0
     displayName: 'Install Docker 17.09.0-ce'
+  - bash: |
+      apt-get update && apt-get install docker-scan-plugin
+      docker scan --accept-license --version
 
   - bash: |
       # Write your commands here
@@ -21,8 +24,14 @@ steps:
       docker build --no-cache --tag bpinfoservice:CA2_TEST_V1 $(Build.SourcesDirectory)
       echo 'running docker image'
       docker run --name bpinfoservice-test -p 22137:22137 -d bpinfoservice:CA2_TEST_V1
-
     displayName: 'Build and run docker image'
+    continueOnError: true
+
+  - bash: |
+      # Scan docker imager for vunrability
+      docker scan --file Dockerfile $(Build.SourcesDirectory)/Dockerfile bpinfoservice:CA2_TEST_V1
+    displayName: 'Scan Docker Image'
+    continueOnError: true
 
   - bash: |
       # Write your commands here
