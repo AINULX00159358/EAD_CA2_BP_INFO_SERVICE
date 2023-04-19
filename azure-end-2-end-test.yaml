@@ -2,6 +2,17 @@ pool:
   name: Azure Pipelines
   demands: npm
 
+trigger:
+  - None
+
+name: INFO-SERVICE_TEST
+
+resources:
+  pipelines:
+    - pipeline: INFO-SERVICE # Name of the pipeline resource.
+      source: INFO-SERVICE # The name of the pipeline referenced by this pipeline resource.
+      trigger: true # Run app-ci pipeline when any run of security-lib-ci completes
+
 steps:
   - task: Npm@1
     displayName: 'npm install'
