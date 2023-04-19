@@ -24,8 +24,8 @@ steps:
   
   - bash: |
       curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin v0.18.3
-      trivy image bpinfoservice:CA2_TEST_V1
-    displayName: 'install try scan'
+      trivy image bpinfoservice:CA2_TEST_V1 --template "@contrib/junit.tpl" -o TEST-vunrability.xml
+    displayName: 'install trivy scan'
 
   - bash: |
       # Write your commands here
