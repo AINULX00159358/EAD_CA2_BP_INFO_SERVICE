@@ -1,0 +1,4 @@
+containerRegistry: "ainhabacr.azurecr.io"
+bpinfoservice:
+  imageVersion: "v1"
+  containerPort: 22137

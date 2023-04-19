@@ -15,8 +15,8 @@ spec:
         app: bpinfo
     spec:
       containers:
-        - image:  ainhabacr.azurecr.io/eadca2/bpinfoservice:v1
+        - image:  {{ .Values.bpinfoservice.imageVersion }}/eadca2/bpinfoservice:{{ .Values.bpinfoservice.imageVersion }}
           name: bpinfoapp
           imagePullPolicy: Always
           ports:
-            - containerPort: 22137
+            - containerPort: {{ .Values.bpinfoservice.containerPort }}
