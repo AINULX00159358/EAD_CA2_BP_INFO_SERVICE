@@ -5,7 +5,7 @@ name: INFO-SERVICE-TEST
 
 variables:
   trivyVersion: 0.40.0
-  ScanResultsPath: rivyScan
+  ScanResultsPath: trivyScan
 
 steps:
   - task: Npm@1
@@ -28,10 +28,11 @@ steps:
   
   - script: |
        sudo apt-get install rpm
-        wget https://github.com/aquasecurity/trivy/releases/download/v$(trivyVersion)/trivy_$(trivyVersion)_Linux-64bit.deb
+        wget -q https://github.com/aquasecurity/trivy/releases/download/v$(trivyVersion)/trivy_$(trivyVersion)_Linux-64bit.deb
         sudo dpkg -i trivy_$(trivyVersion)_Linux-64bit.deb
         mkdir $(ScanResultsPath)
-        trivy image --format template --template "/usr/local/share/trivy/templates/html.tpl" -o $(ScanResultsPath)/vunrability.html bpinfoservice:CA2_TEST_V1
+        trivy image --format template --template "/usr/local/share/trivy/templates/html.tpl" -o $(ScanResultsPath)/index.html bpinfoservice:CA2_TEST_V1
+        ls -lrt $(ScanResultsPath)/
     displayName: 'Scan using Trivy scan'
 
   - bash: |
@@ -63,4 +64,5 @@ steps:
   - task: PublishHtmlReport@1
     displayName: 'Publish HTML Report'
     inputs:
-      reportDir: '$(ScanResultsPath)/vunrability.html'
+      tabName: 'Vunrability Scan'
+      reportDir: '$(ScanResultsPath)'
