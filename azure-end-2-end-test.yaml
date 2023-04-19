@@ -31,7 +31,7 @@ steps:
         wget -q https://github.com/aquasecurity/trivy/releases/download/v$(trivyVersion)/trivy_$(trivyVersion)_Linux-64bit.deb
         sudo dpkg -i trivy_$(trivyVersion)_Linux-64bit.deb
         mkdir $(ScanResultsPath)
-        trivy image --format template --template "/usr/local/share/trivy/templates/html.tpl" -o $(ScanResultsPath)/index.html bpinfoservice:CA2_TEST_V1
+        trivy image --format template --template "/usr/local/share/trivy/templates/html.tpl" -o $(ScanResultsPath)/report.html bpinfoservice:CA2_TEST_V1
         ls -lrt $(ScanResultsPath)/
     displayName: 'Scan using Trivy scan'
 
@@ -58,11 +58,7 @@ steps:
       testRunTitle: 'BP-INFO-SERVICE-E2E-TEST'
   
   - task: PublishHtmlReport@1
-    inputs:
-      tabName: 'trivy-scan-vunrability-report'
-      reportDir: 'trivy-report'
-  - task: PublishHtmlReport@1
     displayName: 'Publish HTML Report'
     inputs:
       tabName: 'Vunrability Scan'
-      reportDir: '$(ScanResultsPath)'
+      reportDir: '$(ScanResultsPath)/report.html'
