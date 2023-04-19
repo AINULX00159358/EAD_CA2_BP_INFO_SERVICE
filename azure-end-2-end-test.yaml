@@ -30,14 +30,8 @@ steps:
       wget https://github.com/aquasecurity/trivy/releases/download/v$(trivyVersion)/trivy_$(trivyVersion)_Linux-64bit.deb
       sudo dpkg -i trivy_$(trivyVersion)_Linux-64bit.deb
       trivy -v
-    displayName: 'Download and install Trivy'
-  
-  # - bash: |
-  #     curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin v0.18.3
-  #     trivy -v
-  #     ls -lrt
-  #     trivy image --format template --template "@templates/junit.tpl" -o trivy-vunrability-report.xml bpinfoservice:CA2_TEST_V1
-  #   displayName: 'run trivy scan'
+      trivy image --format template --template "@templates/junit.tpl" -o trivy-vunrability-report.xml bpinfoservice:CA2_TEST_V1
+    displayName: 'Scan using Trivy scan'
 
   - bash: |
       # Write your commands here
