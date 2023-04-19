@@ -24,7 +24,7 @@ steps:
   
   - bash: |
       curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin v0.18.3
-      trivy image --template "@contrib/junit.tpl" -o TEST-vunrability.xml bpinfoservice:CA2_TEST_V1
+      trivy image --format template --template "@contrib/junit.tpl" -o trivy-vunrability-report.xml bpinfoservice:CA2_TEST_V1
     displayName: 'run trivy scan'
 
   - bash: |
@@ -48,4 +48,11 @@ steps:
       testResultsFiles: '**/TEST-*.xml'
       failTaskOnFailedTests: true
       testRunTitle: 'BP-INFO-SERVICE-E2E-TEST'
-
+  
+  - task: PublishTestResults@2
+    inputs:
+      testResultsFormat: 'JUnit'
+      testResultsFiles: '**/trivy-vunrability-report*.xml'
+      mergeTestResults: true
+      failTaskOnFailedTests: false
+      testRunTitle: 'Trivy - Low and Medium Vulnerabilities'
