@@ -14,7 +14,7 @@ steps:
     displayName: 'Install Docker 17.09.0-ce'
 
   - bash: |
-      docker version 
+      docker scan
     displayName: "Docker version"
 
   - bash: |
@@ -27,7 +27,7 @@ steps:
 
   - bash: |
       # Scan docker imager for vunrability
-      docker scan --file Dockerfile $(Build.SourcesDirectory)/Dockerfile bpinfoservice:CA2_TEST_V1
+      docker scan bpinfoservice:CA2_TEST_V1
     displayName: 'Scan Docker Image'
     continueOnError: true
 
