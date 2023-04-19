@@ -58,7 +58,7 @@ steps:
   - task: PublishTestResults@2
     inputs:
       testResultsFormat: 'JUnit'
-      testResultsFiles: '**/trivy/trivy-vunrability-report*.xml'
+      testResultsFiles: '**/trivy-vunrability-report*.xml'
       mergeTestResults: true
       failTaskOnFailedTests: false
       testRunTitle: 'Trivy - Low and Medium Vulnerabilities'
